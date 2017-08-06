@@ -6,7 +6,6 @@
  */
 
 #include "Hardware.h"
-#include <stm32f10x.h>
 
 namespace Hardware {
 
@@ -79,6 +78,28 @@ void RTC_Init() {
 		/* Wait for RTC registers synchronization */
 		RTC_WaitForSynchro();
 	}
+}
+
+void IRQ_Init() {
+	// 4 bits for pre-emption priority: NVIC_IRQChannelPreemptionPriority = 0..15
+	// 0 bits for subpriority:          NVIC_IRQChannelSubPriority        = 0
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+
+	NVIC_InitTypeDef	NVIC_InitStructure;
+
+	// DMA1 Channel7
+	NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel7_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	// TIM2
+	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
 }
 
 }
