@@ -22,6 +22,10 @@ void Canvas::fillColor(Color color) {
 	}
 }
 
+void Canvas::set(uint16_t index, const Color color) {
+	leds[index] = color;
+}
+
 void Canvas::draw() {
 	LedStripController::writeLeds(leds, ledCount);
 }

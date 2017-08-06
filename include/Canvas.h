@@ -20,6 +20,7 @@ public:
 
 	void init();
 	void fillColor(const Color color);
+	void set(uint16_t index, const Color color);
 	void draw();
 private:
 	Color leds[ledCount];
