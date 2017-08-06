@@ -1,5 +1,5 @@
 #include "Hardware.h"
-#include "LedStripController.h"
+#include "Canvas.h"
 #include "Color.h"
 #include "diag/Trace.h"
 
@@ -10,21 +10,12 @@ int main() {
 	Hardware::RTC_Init();
 	Hardware::IRQ_Init();
 
-	LedStripController ledStrip(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, 29, true);
-	ledStrip.init();
+	Canvas canvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
+	canvas.init();
 
-	Color colors[] = {
-			Color(255, 0, 0),
-			Color(55, 0, 0),
-			Color(0, 200, 0),
-			Color(2, 0, 222),
-			Color(155, 0, 100),
-			Color(25, 24, 24),
-			Color(0, 0, 0),
-			Color(0, 220, 220),
-	};
+	canvas.fillColor(Color(0, 255, 0));
 	while(1) {
-		ledStrip.writeLeds(colors, sizeof(colors) / sizeof(colors[0]));
+		canvas.draw();
 	}
 
 	return 0;

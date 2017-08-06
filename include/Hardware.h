@@ -15,6 +15,9 @@ namespace Hardware {
 static GPIO_TypeDef const* LedStripDataOutPort = GPIOB;
 static const uint16_t LedStripDataOutPin =  GPIO_Pin_3;
 
+static const uint16_t LedOffset = 29;
+static const bool LedsReversed = true;
+
 
 void RCC_Init();
 void GPIO_Remap();
