@@ -6,6 +6,7 @@
  */
 
 #include "Time.h"
+#include <stm32f10x.h>
 
 Time now;
 
@@ -22,6 +23,23 @@ Time::Time() {
 
 Time Time::now() {
 	return ::now;
+}
+
+/**
+ * returns current time with  'usec precision'
+ * @note not that precise but now() returns with .usec being 0
+ */
+Time Time::preciseNow() {
+	Time t1, t2;
+	uint32_t systickVal;
+	do {
+		// this loop makes sure that systickVal and t1 (and t2) are consistent (SysTick IRQ did not happen between t1 and systickVal setting)
+		t1 = ::now;
+		systickVal = SysTick->VAL;
+		t2 = ::now;
+	} while (t1.msec != t2.msec);	// comparing ms in enough, since ::now is updated atomically (in interrupt context)
+	t1.usec = (systickVal * 1000) / SystemCoreClock;
+	return t1;
 }
 
 void Time::addMsec(uint16_t msec) {

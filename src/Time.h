@@ -16,6 +16,7 @@ public:
 	~Time() {}
 
 	static Time now();
+	static Time preciseNow();
 	void addMsec(uint16_t msec);
 
 	inline uint32_t getSec() const {
