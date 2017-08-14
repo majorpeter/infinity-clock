@@ -21,6 +21,10 @@ Time::Time() {
 	usec = 0;
 }
 
+Time::Time(uint32_t sec, uint16_t msec, uint16_t usec) :
+		sec(sec), msec(msec), usec(usec) {
+}
+
 Time Time::now() {
 	return ::now;
 }
@@ -45,6 +49,36 @@ Time Time::preciseNow() {
 void Time::addMsec(uint16_t msec) {
 	this->msec += msec;
 	this->normalize();
+}
+
+bool Time::operator<(const Time& other) const {
+	if (sec < other.sec) {
+		return true;
+	}
+	if (msec < other.msec) {
+		return true;
+	}
+	if (usec < other.usec) {
+		return true;
+	}
+	return false;
+}
+
+bool Time::operator>(const Time& other) const {
+	if (sec > other.sec) {
+		return true;
+	}
+	if (msec > other.msec) {
+		return true;
+	}
+	if (usec > other.usec) {
+		return true;
+	}
+	return false;
+}
+
+uint32_t Time::toMsec() const {
+	return sec * 1000 + msec;
 }
 
 void Time::normalize() {
