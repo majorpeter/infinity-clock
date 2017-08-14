@@ -22,16 +22,18 @@ JsonCanvas::~JsonCanvas() {
 }
 
 void JsonCanvas::draw() {
+	static const uint16_t maxFrames = 60 * 3;
+
 	fprintf(f, "'%d': {\n", frame);
 	for (uint16_t i = 0; i < ledCount; i++) {
 		fprintf(f, "  '%hu': '#%02x%02x%02x'%c\n", i, leds[i].getRed(),
 				leds[i].getGreen(), leds[i].getBlue(),
 				(i == ledCount - 1) ? ' ' : ',');
 	}
-	fprintf(f, "}%c\n", (frame == 10) ? ' ' : ',');
+	fprintf(f, "}%c\n", (frame == maxFrames) ? ' ' : ',');
 
 	frame++;
-	if (frame == 10) {
+	if (frame == maxFrames) {
 		fprintf(f, "};\n");
 		exit(0);
 	}

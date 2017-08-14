@@ -30,6 +30,9 @@ Time::Time(uint32_t sec, uint16_t msec, uint16_t usec) :
 }
 
 Time Time::now() {
+#ifndef STM32F10X_MD
+	::now.addMsec(16);
+#endif
 	return ::now;
 }
 

@@ -17,7 +17,8 @@ void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
 	uint8_t sec = now.getSec() % 60;
 
 	canvas.fillColor(Color(0,0,0));
-	canvas.set(hour * 5 - 1, Color(255, 0, 0));
+	int16_t hour_m1_led_index = hour * 5 - 1;
+	canvas.set((hour_m1_led_index < 0) ? (hour_m1_led_index + 60) : hour_m1_led_index, Color(255, 0, 0));
 	canvas.set(hour * 5, Color(255, 0, 0));
 	canvas.set(hour * 5 + 1, Color(255, 0, 0));
 
