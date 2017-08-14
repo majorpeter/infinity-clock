@@ -6,14 +6,18 @@
  */
 
 #include "Time.h"
+#ifdef STM32F10X_MD
 #include <stm32f10x.h>
+#endif
 
 Time now;
 
+#ifdef STM32F10X_MD
 extern "C"
 void SysTick_Handler(void) {
 	now.addMsec(1);
 }
+#endif
 
 Time::Time() {
 	sec = 0;
@@ -29,6 +33,7 @@ Time Time::now() {
 	return ::now;
 }
 
+#ifdef STM32F10X_MD
 /**
  * returns current time with  'usec precision'
  * @note not that precise but now() returns with .usec being 0
@@ -45,6 +50,7 @@ Time Time::preciseNow() {
 	t1.usec = (systickVal * 1000) / SystemCoreClock;
 	return t1;
 }
+#endif
 
 void Time::addMsec(uint16_t msec) {
 	this->msec += msec;

@@ -6,6 +6,7 @@
  */
 
 #include "EventLoop.h"
+#include "Canvas.h"
 #include <stddef.h>
 
 EventLoop::EventLoop(Canvas& canvas, StateMachine* defaultState,
@@ -27,6 +28,7 @@ void EventLoop::run() {
 			break;
 		}
 		this->currentState->render(canvas, now);
+		this->canvas.draw();
 	}
 }
 
