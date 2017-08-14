@@ -14,7 +14,9 @@ SRC := \
 OBJ := $(subst ../src/,,$(patsubst %.cpp,%.o,$(SRC)))
 
 GCC_FLAGS := \
--I../include
+-I../include \
+-Og \
+-g3
 
 $(TARGET): $(OBJ)
 	g++ -o $(TARGET) $(OBJ)
