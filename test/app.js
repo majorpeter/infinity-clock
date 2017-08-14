@@ -1,5 +1,7 @@
 var canvas;
 var frame = 0;
+var interval;
+
 function fillCircle(x, y, r, color) {
    var ctx = canvas.getContext('2d');
    ctx.beginPath();
@@ -23,8 +25,9 @@ function onLoad() {
 
    // Make sure we don't execute when canvas isn't supported
    if (canvas.getContext){
-      var interval = setInterval(function() {
+      interval = setInterval(function() {
          if (json_data[frame]) {
+            document.getElementById('frameNumber').textContent = frame;
             drawClockFace(json_data[frame])
          } else {
             alert('Done');
@@ -37,4 +40,8 @@ function onLoad() {
    else {
       alert('You need Safari or Firefox 1.5+ to see this demo.');
    }
+}
+
+function stop() {
+   clearInterval(interval);
 }

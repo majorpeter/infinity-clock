@@ -22,7 +22,7 @@ JsonCanvas::~JsonCanvas() {
 }
 
 void JsonCanvas::draw() {
-	static const uint16_t maxFrames = 60 * 3;
+	static const uint16_t maxFrames = 60 * 60;
 
 	fprintf(f, "'%d': {\n", frame);
 	for (uint16_t i = 0; i < ledCount; i++) {
