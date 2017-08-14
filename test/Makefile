@@ -26,3 +26,8 @@ $(JSON): $(TARGET) $(SRC)
 	g++ $(GCC_FLAGS) -o $@ -c $<
 
 all: $(TARGET) $(JSON)
+
+clean:
+	rm $(TARGET) $(JSON) $(OBJ)
+
+.PHONY: all clean
