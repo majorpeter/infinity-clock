@@ -7,13 +7,7 @@
 
 #include "Canvas.h"
 
-Canvas::Canvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin,
-		uint16_t ledIndexOffset, bool reverse) :
-		LedStripController(dataOutGpioPort, dataOutGpioPin, ledIndexOffset, reverse) {
-}
-
-void Canvas::init() {
-	LedStripController::init();
+Canvas::Canvas() {
 }
 
 void Canvas::fillColor(Color color) {
@@ -24,8 +18,4 @@ void Canvas::fillColor(Color color) {
 
 void Canvas::set(uint16_t index, const Color color) {
 	leds[index] = color;
-}
-
-void Canvas::draw() {
-	LedStripController::writeLeds(leds, ledCount);
 }

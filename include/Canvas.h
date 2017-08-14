@@ -8,21 +8,20 @@
 #ifndef CANVAS_H_
 #define CANVAS_H_
 
-#include "LedStripController.h"
 #include "Color.h"
 
-class Canvas: private LedStripController {
+class Canvas {
 public:
 	static const uint16_t ledCount = 60;
 
-	Canvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse);
-	~Canvas() {}
+	Canvas();
+	virtual ~Canvas() {}
 
-	void init();
-	void fillColor(const Color color);
-	void set(uint16_t index, const Color color);
-	void draw();
-private:
+	virtual void init() {}
+	virtual void fillColor(const Color color);
+	virtual void set(uint16_t index, const Color color);
+	virtual void draw() = 0;
+protected:
 	Color leds[ledCount];
 };
 
