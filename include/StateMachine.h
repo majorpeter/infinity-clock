@@ -8,8 +8,9 @@
 #ifndef STATEMACHINE_H_
 #define STATEMACHINE_H_
 
+#include "Time.h"
+
 class Canvas;
-class Time;
 
 class StateMachine {
 public:

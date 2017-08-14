@@ -1,8 +1,11 @@
 #include "Hardware.h"
 #include "HardwareCanvas.h"
-#include "Color.h"
 #include "Time.h"
 #include "diag/Trace.h"
+
+#include "StateMachine_Initial.h"
+#include "StateMachine_Clock.h"
+#include "EventLoop.h"
 
 int main() {
 	Hardware::RCC_Init();
@@ -14,14 +17,8 @@ int main() {
 	Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
 	canvas->init();
 
-	while(1) {
-		uint8_t min = (Time::now().getSec() / 60) % 60;
-		uint8_t sec = Time::now().getSec() % 60;
-		canvas->fillColor(Color(0,0,0));
-		canvas->set(min, Color(0, 255, 0));
-		canvas->set(sec, Color(0, 0, 255));
-		canvas->draw();
-	}
+	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(), new StateMachine_Initial());
+	loop->run();
 
 	return 0;
 }
