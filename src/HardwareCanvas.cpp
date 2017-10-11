@@ -9,9 +9,13 @@
 
 HardwareCanvas::HardwareCanvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin,
 		uint16_t ledIndexOffset, bool reverse) :
-		LedStripController(dataOutGpioPort, dataOutGpioPin, ledIndexOffset, reverse) {
+		ledStrip(dataOutGpioPort, dataOutGpioPin, ledIndexOffset, reverse) {
+}
+
+void HardwareCanvas::init() {
+	ledStrip.init();
 }
 
 void HardwareCanvas::draw() {
-	LedStripController::writeLeds(leds, ledCount);
+	ledStrip.writeLeds(leds, ledCount);
 }
