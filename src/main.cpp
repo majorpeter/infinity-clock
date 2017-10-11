@@ -14,6 +14,9 @@ int main() {
 	Hardware::RTC_Init();
 	Hardware::IRQ_Init();
 
+	//TODO maybe a nicer way to wait for first SysTick?
+	while (Time::now().getMsec() == 0);
+
 	Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
 	canvas->init();
 
