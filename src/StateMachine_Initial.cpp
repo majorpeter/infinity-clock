@@ -8,7 +8,7 @@
 #include "StateMachine_Initial.h"
 #include "Canvas.h"
 
-static const Time renderTime = {2, 0, 0};
+static const Time renderTime = {5, 0, 0};
 
 StateMachine_Initial::StateMachine_Initial() {
 }
@@ -25,6 +25,11 @@ StateMachine::Result StateMachine_Initial::update(const Time& now) {
 }
 
 void StateMachine_Initial::render(Canvas& canvas, const Time& now) {
-	uint8_t status = now.toMsec() * 0xff / renderTime.toMsec();
+	uint8_t status = 0;
+	if (now.toMsec() <= renderTime.toMsec() / 2) {
+		status = now.toMsec() * 0xff / renderTime.toMsec() * 2;
+	} else {
+		status = 0xff - (now.toMsec() - renderTime.toMsec() / 2) * 0xff / renderTime.toMsec() * 2;
+	}
 	canvas.fillColor(Color(status, status, status));
 }
