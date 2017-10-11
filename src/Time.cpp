@@ -14,8 +14,22 @@ Time now;
 
 #ifdef STM32F10X_MD
 extern "C"
-void SysTick_Handler(void) {
-	now.addMsec(1);
+void SysTick_Handler() {
+	Time::tick();
+}
+
+void Time::tick() {
+	static uint32_t rtcLast = 0;
+	uint32_t rtcNow = RTC_GetCounter();
+
+	if (rtcLast != rtcNow) {
+		::now.msec = 0;
+		::now.sec = rtcNow;
+		rtcLast = rtcNow;
+	} else if (::now.msec != 999) {
+		// don't allow an invalid msec value, wait for RTC sync instead
+		::now.msec++;
+	}
 }
 #endif
 

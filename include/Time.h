@@ -32,6 +32,8 @@ public:
 	bool operator>(const Time& other) const;
 	bool operator<(const Time& other) const;
 	uint32_t toMsec() const;
+
+	static inline void tick();
 private:
 	uint32_t sec;
 	uint16_t msec;
