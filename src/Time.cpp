@@ -60,30 +60,23 @@ void Time::addMsec(uint16_t msec) {
 	this->normalize();
 }
 
-bool Time::operator<(const Time& other) const {
-	if (sec < other.sec) {
+bool Time::operator>(const Time& other) const {
+	if (sec > other.sec) {
 		return true;
-	}
-	if (msec < other.msec) {
-		return true;
-	}
-	if (usec < other.usec) {
-		return true;
+	} else if (sec == other.sec) {
+		if (msec > other.msec) {
+			return true;
+		} else if (msec == other.msec) {
+			if (usec > other.usec) {
+				return true;
+			}
+		}
 	}
 	return false;
 }
 
-bool Time::operator>(const Time& other) const {
-	if (sec > other.sec) {
-		return true;
-	}
-	if (msec > other.msec) {
-		return true;
-	}
-	if (usec > other.usec) {
-		return true;
-	}
-	return false;
+bool Time::operator<(const Time& other) const {
+	return (*this > other);
 }
 
 uint32_t Time::toMsec() const {

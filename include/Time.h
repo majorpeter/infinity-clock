@@ -29,8 +29,8 @@ public:
 	inline uint16_t getUsec() const {
 		return usec;
 	}
-	bool operator<(const Time& other) const;
 	bool operator>(const Time& other) const;
+	bool operator<(const Time& other) const;
 	uint32_t toMsec() const;
 private:
 	uint32_t sec;
