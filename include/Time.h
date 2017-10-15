@@ -13,11 +13,11 @@
 class Time {
 public:
 	Time();
-	Time(uint32_t sec, uint16_t msec, uint16_t usec);
+	Time(uint32_t sec, uint16_t msec);
 	~Time() {}
 
 	static Time now();
-	static Time preciseNow();
+	static void setNow(const Time& value);
 	void addMsec(uint16_t msec);
 
 	inline uint32_t getSec() const {
@@ -25,9 +25,6 @@ public:
 	}
 	inline uint16_t getMsec() const {
 		return msec;
-	}
-	inline uint16_t getUsec() const {
-		return usec;
 	}
 	bool operator>(const Time& other) const;
 	bool operator<(const Time& other) const;
@@ -37,7 +34,6 @@ public:
 private:
 	uint32_t sec;
 	uint16_t msec;
-	uint16_t usec;
 
 	void normalize();
 };

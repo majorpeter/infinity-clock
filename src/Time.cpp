@@ -36,11 +36,10 @@ void Time::tick() {
 Time::Time() {
 	sec = 0;
 	msec = 0;
-	usec = 0;
 }
 
-Time::Time(uint32_t sec, uint16_t msec, uint16_t usec) :
-		sec(sec), msec(msec), usec(usec) {
+Time::Time(uint32_t sec, uint16_t msec) :
+		sec(sec), msec(msec) {
 }
 
 Time Time::now() {
@@ -50,24 +49,12 @@ Time Time::now() {
 	return ::now;
 }
 
+void Time::setNow(const Time& value) {
 #ifdef STM32F10X_MD
-/**
- * returns current time with  'usec precision'
- * @note not that precise but now() returns with .usec being 0
- */
-Time Time::preciseNow() {
-	Time t1, t2;
-	uint32_t systickVal;
-	do {
-		// this loop makes sure that systickVal and t1 (and t2) are consistent (SysTick IRQ did not happen between t1 and systickVal setting)
-		t1 = ::now;
-		systickVal = SysTick->VAL;
-		t2 = ::now;
-	} while (t1.msec != t2.msec);	// comparing ms in enough, since ::now is updated atomically (in interrupt context)
-	t1.usec = (systickVal * 1000) / SystemCoreClock;
-	return t1;
-}
+#error implement RTC setting!
 #endif
+	::now = value;
+}
 
 void Time::addMsec(uint16_t msec) {
 	this->msec += msec;
@@ -80,10 +67,6 @@ bool Time::operator>(const Time& other) const {
 	} else if (sec == other.sec) {
 		if (msec > other.msec) {
 			return true;
-		} else if (msec == other.msec) {
-			if (usec > other.usec) {
-				return true;
-			}
 		}
 	}
 	return false;
@@ -98,10 +81,6 @@ uint32_t Time::toMsec() const {
 }
 
 void Time::normalize() {
-	if (usec >= 1000) {
-		msec += usec / 1000;
-		usec %= 1000;
-	}
 	if (msec >= 1000) {
 		sec += msec / 1000;
 		msec %= 1000;

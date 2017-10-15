@@ -8,7 +8,7 @@
 #include "StateMachine_Initial.h"
 #include "Canvas.h"
 
-static const Time renderTime = {5, 0, 0};
+static const Time renderTime = {5, 0};
 
 StateMachine_Initial::StateMachine_Initial() {
 }
