@@ -30,6 +30,6 @@ $(JSON): $(TARGET) $(SRC)
 all: $(TARGET) $(JSON)
 
 clean:
-	rm $(TARGET) $(JSON) $(OBJ)
+	rm -f $(TARGET) $(JSON) $(OBJ)
 
 .PHONY: all clean
