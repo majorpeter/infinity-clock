@@ -9,6 +9,7 @@
 #include "Canvas.h"
 
 static const uint16_t secondAnimationDurationMs = 300;
+static const uint16_t minuteAnimationDurationMs = 1400;
 
 StateMachine_Clock::StateMachine_Clock() {
 }
@@ -26,7 +27,14 @@ void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
 	canvas.add(hour * 5, Color::red);
 	canvas.add(hour * 5 + 1, Color::red);
 
-	canvas.add(min, Color::green);
+	uint16_t minuteAnimationMs = sec * 1000 + ms;
+	if (minuteAnimationMs < minuteAnimationDurationMs) {
+		float animState = (float) minuteAnimationMs / minuteAnimationDurationMs;
+		canvas.add(min - 1, Color::green * (1.f - animState));
+		canvas.add(min, Color::green * animState);
+	} else {
+		canvas.add(min, Color::green);
+	}
 
 	if (ms < secondAnimationDurationMs) {
 		float animState = ((float) ms / (secondAnimationDurationMs));
