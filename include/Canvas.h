@@ -22,6 +22,7 @@ public:
 	virtual void fillColor(const Color color);
 	virtual void add(int16_t index, const Color color);
 	virtual void set(int16_t index, const Color color);
+	virtual bool isSet(int16_t index);
 	virtual void draw() = 0;
 protected:
 	Color leds[ledCount];

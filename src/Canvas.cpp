@@ -27,3 +27,7 @@ void Canvas::add(int16_t index, const Color color) {
 void Canvas::set(int16_t index, const Color color) {
 	leds[fixIndexRange(index)] = color;
 }
+
+bool Canvas::isSet(int16_t index) {
+	return !(leds[fixIndexRange(index)] == Color::black);
+}
