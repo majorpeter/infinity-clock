@@ -6,7 +6,6 @@
  */
 
 #include "EventLoop.h"
-#include "StateMachine_Initial.h"
 #include "StateMachine_Clock.h"
 #include "JsonCanvas.h"
 
@@ -15,6 +14,8 @@ int main(int argc, char* argv[]) {
 		return -2;
 	}
 	Canvas* canvas = new JsonCanvas(argv[1]);
-	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(), new StateMachine_Initial());
+	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(), NULL);
+
+	Time::setNow(Time(3600 + 59 * 60 + 56, 0));
 	loop->run();
 }

@@ -12,6 +12,9 @@
 EventLoop::EventLoop(Canvas& canvas, StateMachine* defaultState,
 		StateMachine* initialState) :
 		canvas(canvas), defaultState(defaultState), initialState(initialState) {
+	if (initialState == NULL) {
+		this->initialState = defaultState;
+	}
 	currentState = NULL;
 }
 
