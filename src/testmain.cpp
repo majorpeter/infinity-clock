@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 		return -2;
 	}
 	Canvas* canvas = new JsonCanvas(argv[1]);
-	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(), NULL);
+	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(Color::red, Color::green, Color::blue), NULL);
 
 	Time::setNow(Time(3600 + 59 * 60 + 56, 0));
 	loop->run();

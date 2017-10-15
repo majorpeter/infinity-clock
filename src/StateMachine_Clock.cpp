@@ -15,7 +15,9 @@ static const uint16_t hourAnimationDurationMs = 2800;
 // there are 60 leds, and 12 hours
 static const uint8_t ledsPerHour = (60 / 12);
 
-StateMachine_Clock::StateMachine_Clock() {
+StateMachine_Clock::StateMachine_Clock(const Color& colorHour,
+		const Color& colorMinute, const Color& colorSecound) :
+		colorHour(colorHour), colorMinute(colorMinute), colorSecound(colorSecound) {
 }
 
 void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
@@ -36,29 +38,29 @@ void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
 		int16_t centerPositionOffsetIndex = (int16_t) centerPositionOffset;
 		float animationDifference = centerPositionOffset - centerPositionOffsetIndex;
 
-		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 2, Color::red * animationDifference);
-		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 1, Color::red);
-		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex, Color::red);
-		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex + 1, Color::red * (1.f - animationDifference));
+		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 2, colorHour * animationDifference);
+		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 1, colorHour);
+		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex, colorHour);
+		canvas.add(hourCenterLedIndex - centerPositionOffsetIndex + 1, colorHour * (1.f - animationDifference));
 	} else {
-		canvas.add(hourCenterLedIndex - 1, Color::red);
-		canvas.add(hourCenterLedIndex, Color::red);
-		canvas.add(hourCenterLedIndex + 1, Color::red);
+		canvas.add(hourCenterLedIndex - 1, colorHour);
+		canvas.add(hourCenterLedIndex, colorHour);
+		canvas.add(hourCenterLedIndex + 1, colorHour);
 	}
 
 	if (minuteAnimationMs < minuteAnimationDurationMs) {
 		float animState = (float) minuteAnimationMs / minuteAnimationDurationMs;
-		canvas.add(minute - 1, Color::green * (1.f - animState));
-		canvas.add(minute, Color::green * animState);
+		canvas.add(minute - 1, colorMinute * (1.f - animState));
+		canvas.add(minute, colorMinute * animState);
 	} else {
-		canvas.add(minute, Color::green);
+		canvas.add(minute, colorMinute);
 	}
 
 	if (millisec < secondAnimationDurationMs) {
 		float animState = ((float) millisec / (secondAnimationDurationMs));
-		canvas.add(second - 1, Color::blue * (1.f - animState));
-		canvas.add(second, Color::blue * animState);
+		canvas.add(second - 1, colorSecound * (1.f - animState));
+		canvas.add(second, colorSecound * animState);
 	} else {
-		canvas.add(second, Color::blue);
+		canvas.add(second, colorSecound);
 	}
 }

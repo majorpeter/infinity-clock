@@ -51,7 +51,12 @@ Time Time::now() {
 
 void Time::setNow(const Time& value) {
 #ifdef STM32F10X_MD
-#error implement RTC setting!
+	PWR_BackupAccessCmd(ENABLE);
+	RTC_WaitForLastTask();
+	RTC_SetCounter(value.sec);
+	RTC_WaitForLastTask();
+	PWR_BackupAccessCmd(DISABLE);
+
 #endif
 	::now = value;
 }

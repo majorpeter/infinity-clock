@@ -20,7 +20,9 @@ int main() {
 	Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
 	canvas->init();
 
-	EventLoop* loop = new EventLoop(*canvas, new StateMachine_Clock(), new StateMachine_Initial());
+	EventLoop* loop = new EventLoop(*canvas,
+			new StateMachine_Clock(Color::red, Color::green, Color::blue),
+			new StateMachine_Initial());
 	loop->run();
 
 	return 0;
