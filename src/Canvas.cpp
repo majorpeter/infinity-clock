@@ -20,10 +20,10 @@ void Canvas::fillColor(const Color color) {
 	}
 }
 
-void Canvas::add(uint16_t index, const Color color) {
-	leds[index] += color;
+void Canvas::add(int16_t index, const Color color) {
+	leds[fixIndexRange(index)] += color;
 }
 
-void Canvas::set(uint16_t index, const Color color) {
-	leds[index] = color;
+void Canvas::set(int16_t index, const Color color) {
+	leds[fixIndexRange(index)] = color;
 }
