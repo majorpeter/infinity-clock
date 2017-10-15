@@ -17,7 +17,16 @@
       <div id="test">
          <p>
             Frame number: <span id="frameNumber">?</span>
+         </p><p>
+            <button onclick="setTimer(100)">10 fps</button>
+            <button onclick="setTimer(33)">30 fps</button>
+            <button onclick="setTimer(16)">60 fps</button>
+            <button onclick="setTimer(8)">120 fps</button>
+         </p><p>
+            <button onclick="step(-1)">Step backward</button>
+            <button onclick="step(1)">Step forward</button>
             <button onclick="stop()">Stop</button>
+            <button onclick="onLoad()">Reset</button>
          </p>
          <canvas id="mycanvas" width="600" height="600"></canvas>
       </div>
