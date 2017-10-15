@@ -10,7 +10,11 @@
 Canvas::Canvas() {
 }
 
-void Canvas::fillColor(Color color) {
+void Canvas::clear() {
+	this->fillColor(Color::black);
+}
+
+void Canvas::fillColor(const Color color) {
 	for (uint16_t i = 0; i < ledCount; i++) {
 		leds[i] = color;
 	}

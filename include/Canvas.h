@@ -18,6 +18,7 @@ public:
 	virtual ~Canvas() {}
 
 	virtual void init() {}
+	virtual void clear();
 	virtual void fillColor(const Color color);
 	virtual void set(uint16_t index, const Color color);
 	virtual void draw() = 0;

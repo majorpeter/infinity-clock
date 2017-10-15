@@ -18,10 +18,10 @@ void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
 
 	canvas.fillColor(Color(0,0,0));
 	int16_t hour_m1_led_index = hour * 5 - 1;
-	canvas.set((hour_m1_led_index < 0) ? (hour_m1_led_index + 60) : hour_m1_led_index, Color(255, 0, 0));
-	canvas.set(hour * 5, Color(255, 0, 0));
-	canvas.set(hour * 5 + 1, Color(255, 0, 0));
+	canvas.set((hour_m1_led_index < 0) ? (hour_m1_led_index + 60) : hour_m1_led_index, Color::red);
+	canvas.set(hour * 5, Color::red);
+	canvas.set(hour * 5 + 1, Color::red);
 
-	canvas.set(min, Color(0, 255, 0));
-	canvas.set(sec, Color(0, 0, 255));
+	canvas.set(min, Color::green);
+	canvas.set(sec, Color::blue);
 }
