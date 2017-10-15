@@ -15,9 +15,11 @@ static const uint16_t hourAnimationDurationMs = 2800;
 // there are 60 leds, and 12 hours
 static const uint8_t ledsPerHour = (60 / 12);
 
-StateMachine_Clock::StateMachine_Clock(const Color& colorHour,
-		const Color& colorMinute, const Color& colorSecound) :
-		colorHour(colorHour), colorMinute(colorMinute), colorSecound(colorSecound) {
+StateMachine_Clock::StateMachine_Clock(const Color colorHour,
+		const Color colorMinute, const Color colorSecound,
+		const Color colorCardinalDirections) :
+		colorHour(colorHour), colorMinute(colorMinute),
+		colorSecound(colorSecound), colorCardinalDirections(colorCardinalDirections) {
 }
 
 void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
@@ -62,5 +64,18 @@ void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
 		canvas.add(second, colorSecound * animState);
 	} else {
 		canvas.add(second, colorSecound);
+	}
+
+	if (!canvas.isSet(0)) {
+		canvas.set(0, colorCardinalDirections);
+	}
+	if (!canvas.isSet(15)) {
+		canvas.set(15, colorCardinalDirections);
+	}
+	if (!canvas.isSet(30)) {
+		canvas.set(30, colorCardinalDirections);
+	}
+	if (!canvas.isSet(45)) {
+		canvas.set(45, colorCardinalDirections);
 	}
 }
