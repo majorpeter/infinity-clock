@@ -12,30 +12,30 @@
 
 class Time {
 public:
-	Time();
-	Time(uint32_t sec, uint16_t msec);
-	~Time() {}
+    Time();
+    Time(uint32_t sec, uint16_t msec);
+    ~Time() {}
 
-	static Time now();
-	static void setNow(const Time& value);
-	void addMsec(uint16_t msec);
+    static Time now();
+    static void setNow(const Time& value);
+    void addMsec(uint16_t msec);
 
-	inline uint32_t getSec() const {
-		return sec;
-	}
-	inline uint16_t getMsec() const {
-		return msec;
-	}
-	bool operator>(const Time& other) const;
-	bool operator<(const Time& other) const;
-	uint32_t toMsec() const;
+    inline uint32_t getSec() const {
+        return sec;
+    }
+    inline uint16_t getMsec() const {
+        return msec;
+    }
+    bool operator>(const Time& other) const;
+    bool operator<(const Time& other) const;
+    uint32_t toMsec() const;
 
-	static inline void tick();
+    static inline void tick();
 private:
-	uint32_t sec;
-	uint16_t msec;
+    uint32_t sec;
+    uint16_t msec;
 
-	void normalize();
+    void normalize();
 };
 
 #endif /* TIME_H_ */

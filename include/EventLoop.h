@@ -12,16 +12,16 @@
 
 class EventLoop {
 public:
-	EventLoop(Canvas& canvas, StateMachine* defaultState, StateMachine* initialState);
-	~EventLoop() {}
-	void run();
+    EventLoop(Canvas& canvas, StateMachine* defaultState, StateMachine* initialState);
+    ~EventLoop() {}
+    void run();
 private:
-	Canvas& canvas;
-	StateMachine* defaultState;
-	StateMachine* initialState;
-	StateMachine* currentState;
+    Canvas& canvas;
+    StateMachine* defaultState;
+    StateMachine* initialState;
+    StateMachine* currentState;
 
-	void enter(StateMachine* nextState);
+    void enter(StateMachine* nextState);
 };
 
 #endif /* EVENTLOOP_H_ */

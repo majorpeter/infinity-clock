@@ -8,22 +8,22 @@
 #include "EventLoop.h"
 
 int main() {
-	Hardware::RCC_Init();
-	Hardware::GPIO_Remap();
-	Hardware::SysTickInit();
-	Hardware::RTC_Init();
-	Hardware::IRQ_Init();
+    Hardware::RCC_Init();
+    Hardware::GPIO_Remap();
+    Hardware::SysTickInit();
+    Hardware::RTC_Init();
+    Hardware::IRQ_Init();
 
-	//TODO maybe a nicer way to wait for first SysTick?
-	while (Time::now().getMsec() == 0);
+    //TODO maybe a nicer way to wait for first SysTick?
+    while (Time::now().getMsec() == 0);
 
-	Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
-	canvas->init();
+    Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
+    canvas->init();
 
-	EventLoop* loop = new EventLoop(*canvas,
-			new StateMachine_Clock(Color::red, Color::green, Color::blue),
-			new StateMachine_Initial());
-	loop->run();
+    EventLoop* loop = new EventLoop(*canvas,
+            new StateMachine_Clock(Color::red, Color::green, Color::blue),
+            new StateMachine_Initial());
+    loop->run();
 
-	return 0;
+    return 0;
 }

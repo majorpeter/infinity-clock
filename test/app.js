@@ -50,6 +50,6 @@ function onLoad() {
 }
 
 function stop() {
-   document.getElementById('frameNumber').textContent += ' (finished)';	
+   document.getElementById('frameNumber').textContent += ' (finished)';
    clearInterval(interval);
 }

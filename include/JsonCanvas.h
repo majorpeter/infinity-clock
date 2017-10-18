@@ -13,12 +13,12 @@
 
 class JsonCanvas: public Canvas {
 public:
-	JsonCanvas(const char* fname);
-	virtual ~JsonCanvas();
-	virtual void draw();
+    JsonCanvas(const char* fname);
+    virtual ~JsonCanvas();
+    virtual void draw();
 private:
-	FILE* f;
-	uint16_t frame;
+    FILE* f;
+    uint16_t frame;
 };
 
 #endif /* JSONCANVAS_H_ */

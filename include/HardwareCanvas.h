@@ -13,13 +13,13 @@
 
 class HardwareCanvas: public Canvas {
 public:
-	HardwareCanvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse);
-	virtual ~HardwareCanvas() {}
+    HardwareCanvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse);
+    virtual ~HardwareCanvas() {}
 
-	virtual void init();
-	virtual void draw();
+    virtual void init();
+    virtual void draw();
 private:
-	LedStripController ledStrip;
+    LedStripController ledStrip;
 };
 
 #endif /* HARDWARECANVAS_H_ */
