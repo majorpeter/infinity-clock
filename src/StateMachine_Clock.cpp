@@ -8,62 +8,24 @@
 #include "StateMachine_Clock.h"
 #include "Canvas.h"
 
-static const uint16_t secondAnimationDurationMs = 300;
-static const uint16_t minuteAnimationDurationMs = 1200;
-static const uint16_t hourAnimationDurationMs = 2800;
-
-// there are 60 leds, and 12 hours
-static const uint8_t ledsPerHour = (60 / 12);
+#include "Layer_ClockHour.h"
+#include "Layer_ClockMinute.h"
+#include "Layer_ClockSecond.h"
 
 StateMachine_Clock::StateMachine_Clock(const Color colorHour,
-        const Color colorMinute, const Color colorSecound,
+        const Color colorMinute, const Color colorSecond,
         const Color colorCardinalDirections) :
-        colorHour(colorHour), colorMinute(colorMinute),
-        colorSecound(colorSecound), colorCardinalDirections(colorCardinalDirections) {
+        colorCardinalDirections(colorCardinalDirections) {
+    layers[0] = new Layer_ClockHour(colorHour);
+    layers[1] = new Layer_ClockMinute(colorMinute);
+    layers[2] = new Layer_ClockSecond(colorSecond);
 }
 
 void StateMachine_Clock::render(Canvas& canvas, const Time& now) {
-    uint8_t hour = (now.getSec() / 3600) % 12;
-    uint8_t minute = (now.getSec() / 60) % 60;
-    uint8_t second = now.getSec() % 60;
-    uint16_t millisec = now.getMsec();
-
     canvas.fillColor(Color::black);
 
-    uint16_t minuteAnimationMs = second * 1000 + millisec;
-    int16_t hourCenterLedIndex = hour * ledsPerHour;
-    if ((minute == 0) && (minuteAnimationMs < hourAnimationDurationMs)) {
-        // [0 -> 1.0] transition state
-        float animState = (float) minuteAnimationMs / hourAnimationDurationMs;
-        // [0 .. 5], hourCenterLedIndex will be added to it
-        float centerPositionOffset = (1.f - animState) * ledsPerHour;
-        int16_t centerPositionOffsetIndex = (int16_t) centerPositionOffset;
-        float animationDifference = centerPositionOffset - centerPositionOffsetIndex;
-
-        canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 2, colorHour * animationDifference);
-        canvas.add(hourCenterLedIndex - centerPositionOffsetIndex - 1, colorHour);
-        canvas.add(hourCenterLedIndex - centerPositionOffsetIndex, colorHour);
-        canvas.add(hourCenterLedIndex - centerPositionOffsetIndex + 1, colorHour * (1.f - animationDifference));
-    } else {
-        canvas.add(hourCenterLedIndex - 1, colorHour);
-        canvas.add(hourCenterLedIndex, colorHour);
-        canvas.add(hourCenterLedIndex + 1, colorHour);
-    }
-
-    if (minuteAnimationMs < minuteAnimationDurationMs) {
-        float animState = (float) minuteAnimationMs / minuteAnimationDurationMs;
-        canvas.add(minute - 1, colorMinute * (1.f - animState));
-        canvas.add(minute, colorMinute * animState);
-    } else {
-        canvas.add(minute, colorMinute);
-    }
-
-    if (millisec < secondAnimationDurationMs) {
-        float animState = ((float) millisec / (secondAnimationDurationMs));
-        canvas.add(second - 1, colorSecound * (1.f - animState));
-        canvas.add(second, colorSecound * animState);
-    } else {
-        canvas.add(second, colorSecound);
+    for (uint8_t i = 0; i < sizeof(layers) / sizeof(layers[0]); i++) {
+        layers[i]->render(canvas, now);
     }
 
     if (!canvas.isSet(0)) {

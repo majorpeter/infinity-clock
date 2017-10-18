@@ -9,7 +9,10 @@ SRC := \
 ../src/Color.cpp \
 ../src/EventLoop.cpp \
 ../src/StateMachine_Initial.cpp \
-../src/StateMachine_Clock.cpp
+../src/StateMachine_Clock.cpp \
+../src/Layer_ClockHour.cpp \
+../src/Layer_ClockMinute.cpp \
+../src/Layer_ClockSecond.cpp
 
 OBJ := $(subst ../src/,,$(patsubst %.cpp,%.o,$(SRC)))
 

@@ -21,7 +21,7 @@ int main() {
     canvas->init();
 
     EventLoop* loop = new EventLoop(*canvas,
-            new StateMachine_Clock(Color::red, Color::green, Color::blue),
+            new StateMachine_Clock(Color::red, Color::green, Color::blue, Color::white * 0.25f),
             new StateMachine_Initial());
     loop->run();
 
