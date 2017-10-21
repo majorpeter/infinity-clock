@@ -12,7 +12,8 @@ SRC := \
 ../application/StateMachine_Clock.cpp \
 ../application/layers/ClockHour.cpp \
 ../application/layers/ClockMinute.cpp \
-../application/layers/ClockSecond.cpp
+../application/layers/ClockSecond.cpp \
+../application/layers/ClockMarker.cpp
 
 OBJ := $(subst ../application/,,$(patsubst %.cpp,%.o,$(SRC)))
 

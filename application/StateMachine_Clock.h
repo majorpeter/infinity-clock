@@ -19,10 +19,7 @@ public:
             const Color colorSecond, const Color colorCardinalDirections);
     virtual void render(Canvas& canvas, const Time& now);
 private:
-    Layer* layers[3];
-
-    /// The four cardinal directions or cardinal points are the directions north, east, south, and west
-    const Color colorCardinalDirections;
+    Layer* layers[7];
 };
 
 #endif /* STATEMACHINE_CLOCK_H_ */
