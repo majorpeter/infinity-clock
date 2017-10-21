@@ -5,17 +5,19 @@
  *      Author: peti
  */
 
-#include <Layer_ClockHour.h>
+#include "ClockHour.h"
+
+namespace Layers {
 
 static const uint16_t hourAnimationDurationMs = 2800;
 
 // there are 60 leds, and 12 hours
 static const uint8_t ledsPerHour = (60 / 12);
 
-Layer_ClockHour::Layer_ClockHour(Color color) : color(color) {
+ClockHour::ClockHour(Color color) : color(color) {
 }
 
-void Layer_ClockHour::render(Canvas& canvas, const Time& now) {
+void ClockHour::render(Canvas& canvas, const Time& now) {
     uint8_t hour = (now.getSec() / 3600) % 12;
     uint8_t minute = (now.getSec() / 60) % 60;
     uint8_t second = now.getSec() % 60;
@@ -41,3 +43,5 @@ void Layer_ClockHour::render(Canvas& canvas, const Time& now) {
     }
 
 }
+
+} /* namespace Layers */

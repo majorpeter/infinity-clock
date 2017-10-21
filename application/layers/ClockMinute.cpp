@@ -5,14 +5,16 @@
  *      Author: peti
  */
 
-#include "Layer_ClockMinute.h"
+#include "ClockMinute.h"
+
+namespace Layers {
 
 static const uint16_t minuteAnimationDurationMs = 1200;
 
-Layer_ClockMinute::Layer_ClockMinute(const Color color) : color(color) {
+ClockMinute::ClockMinute(const Color color) : color(color) {
 }
 
-void Layer_ClockMinute::render(Canvas& canvas, const Time& now) {
+void ClockMinute::render(Canvas& canvas, const Time& now) {
     uint8_t second = now.getSec() % 60;
     uint8_t minute = (now.getSec() / 60) % 60;
 
@@ -25,3 +27,5 @@ void Layer_ClockMinute::render(Canvas& canvas, const Time& now) {
         canvas.add(minute, color);
     }
 }
+
+} /* namespace Layers */

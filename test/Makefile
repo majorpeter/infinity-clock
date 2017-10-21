@@ -10,9 +10,9 @@ SRC := \
 ../application/EventLoop.cpp \
 ../application/StateMachine_Initial.cpp \
 ../application/StateMachine_Clock.cpp \
-../application/Layer_ClockHour.cpp \
-../application/Layer_ClockMinute.cpp \
-../application/Layer_ClockSecond.cpp
+../application/layers/ClockHour.cpp \
+../application/layers/ClockMinute.cpp \
+../application/layers/ClockSecond.cpp
 
 OBJ := $(subst ../application/,,$(patsubst %.cpp,%.o,$(SRC)))
 
@@ -22,17 +22,30 @@ GCC_FLAGS := \
 -g3
 
 $(TARGET): $(OBJ)
+	@echo "============="
+	@echo "Linking the target $@"
+	@echo "============="
 	g++ -o $(TARGET) $(OBJ)
+	@echo -- Link finished --
 
 $(JSON): $(TARGET) $(SRC)
 	./$(TARGET) $(JSON)
 
 %.o: ../application/%.cpp
+	@mkdir -p $(dir $@)
+	@echo "============="
+	@echo "Compiling $<"
+	g++ $(GCC_FLAGS) -o $@ -c $<
+
+layers/%.o: ../application/layers/%.cpp
+	@mkdir -p $(dir $@)
+	@echo "============="
+	@echo "Compiling $<"
 	g++ $(GCC_FLAGS) -o $@ -c $<
 
 all: $(TARGET) $(JSON)
 
 clean:
-	rm -f $(TARGET) $(JSON) $(OBJ)
+	rm -Rf $(TARGET) $(JSON) $(OBJ) layers
 
 .PHONY: all clean

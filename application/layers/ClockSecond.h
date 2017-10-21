@@ -10,12 +10,16 @@
 
 #include "Layer.h"
 
-class Layer_ClockSecond: public Layer {
+namespace Layers {
+
+class ClockSecond: public Layer {
 public:
-    Layer_ClockSecond(const Color color);
+    ClockSecond(const Color color);
     virtual void render(Canvas& canvas, const Time& now);
 private:
     Color color;
 };
+
+} /* namespace Layers */
 
 #endif /* LAYER_CLOCKSECOND_H_ */

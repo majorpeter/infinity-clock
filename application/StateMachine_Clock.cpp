@@ -8,17 +8,19 @@
 #include "StateMachine_Clock.h"
 #include "Canvas.h"
 
-#include "Layer_ClockHour.h"
-#include "Layer_ClockMinute.h"
-#include "Layer_ClockSecond.h"
+#include "layers/ClockHour.h"
+#include "layers/ClockMinute.h"
+#include "layers/ClockSecond.h"
+
+using namespace Layers;
 
 StateMachine_Clock::StateMachine_Clock(const Color colorHour,
         const Color colorMinute, const Color colorSecond,
         const Color colorCardinalDirections) :
         colorCardinalDirections(colorCardinalDirections) {
-    layers[0] = new Layer_ClockHour(colorHour);
-    layers[1] = new Layer_ClockMinute(colorMinute);
-    layers[2] = new Layer_ClockSecond(colorSecond);
+    layers[0] = new ClockHour(colorHour);
+    layers[1] = new ClockMinute(colorMinute);
+    layers[2] = new ClockSecond(colorSecond);
 }
 
 void StateMachine_Clock::render(Canvas& canvas, const Time& now) {

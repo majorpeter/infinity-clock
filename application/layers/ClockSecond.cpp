@@ -5,14 +5,16 @@
  *      Author: peti
  */
 
-#include "Layer_ClockSecond.h"
+#include "ClockSecond.h"
+
+namespace Layers {
 
 static const uint16_t secondAnimationDurationMs = 300;
 
-Layer_ClockSecond::Layer_ClockSecond(const Color color) : color(color) {
+ClockSecond::ClockSecond(const Color color) : color(color) {
 }
 
-void Layer_ClockSecond::render(Canvas& canvas, const Time& now) {
+void ClockSecond::render(Canvas& canvas, const Time& now) {
     uint8_t second = now.getSec() % 60;
     uint16_t millisec = now.getMsec();
 
@@ -24,3 +26,5 @@ void Layer_ClockSecond::render(Canvas& canvas, const Time& now) {
         canvas.add(second, color);
     }
 }
+
+} /* namespace Layers */
