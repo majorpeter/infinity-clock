@@ -13,8 +13,12 @@ namespace Layers {
 
 static const uint16_t fadeTimeMs = 400;
 
+/**
+ * @param color marker color when visible
+ * @param ledIndex position on the clock face
+ */
 ClockMarker::ClockMarker(Color color, uint8_t ledIndex) :
-        color(color), ledIndex(ledIndex) {
+        ledIndex(ledIndex), color(color) {
     state = State::Hidden;
     animationStartMs = 0;
 }
@@ -23,14 +27,12 @@ void ClockMarker::render(Canvas& canvas, const Time& now) {
     switch (state) {
     case State::Hidden:
         if (shouldBeVisible(canvas)) {
-            state = State::FadeIn;
-            animationStartMs = now.toMsec();
+            this->show(now);
         }
         break;
     case State::Default:
         if (!shouldBeVisible(canvas)) {
-            state = State::FadeOut;
-            animationStartMs = now.toMsec();
+            this->hide(now);
         }
         canvas.add(ledIndex, color);
         break;
@@ -55,6 +57,16 @@ void ClockMarker::render(Canvas& canvas, const Time& now) {
         break;
     }
     }
+}
+
+void ClockMarker::hide(const Time& now) {
+    state = State::FadeOut;
+    animationStartMs = now.toMsec();
+}
+
+void ClockMarker::show(const Time& now) {
+    state = State::FadeIn;
+    animationStartMs = now.toMsec();
 }
 
 bool ClockMarker::shouldBeVisible(Canvas& canvas) {

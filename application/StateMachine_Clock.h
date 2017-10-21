@@ -16,10 +16,11 @@ class Layer;
 class StateMachine_Clock: public StateMachine {
 public:
     StateMachine_Clock(const Color colorHour, const Color colorMinute,
-            const Color colorSecond, const Color colorCardinalDirections);
+            const Color colorSecond, const Color colorCardinalDirections,
+            const Color colorProximityMarkers);
     virtual void render(Canvas& canvas, const Time& now);
 private:
-    Layer* layers[7];
+    Layer* layers[15];
 };
 
 #endif /* STATEMACHINE_CLOCK_H_ */

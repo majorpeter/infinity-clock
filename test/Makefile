@@ -13,7 +13,8 @@ SRC := \
 ../application/layers/ClockHour.cpp \
 ../application/layers/ClockMinute.cpp \
 ../application/layers/ClockSecond.cpp \
-../application/layers/ClockMarker.cpp
+../application/layers/ClockMarker.cpp \
+../application/layers/ClockProximityMarker.cpp
 
 OBJ := $(subst ../application/,,$(patsubst %.cpp,%.o,$(SRC)))
 

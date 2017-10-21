@@ -12,10 +12,20 @@
 
 namespace Layers {
 
+/**
+ * A ClockMarker is visible if no other clock feature is shown in its position. Otherwise
+ * it fades out and fades in when the 'other feature' disappears.
+ */
 class ClockMarker: public Layer {
 public:
     ClockMarker(Color color, uint8_t ledIndex);
     virtual void render(Canvas& canvas, const Time& now);
+protected:
+    const uint8_t ledIndex;
+
+    void hide(const Time& now);
+    void show(const Time& now);
+    virtual bool shouldBeVisible(Canvas& canvas);
 private:
     enum class State {
         Hidden,
@@ -25,12 +35,8 @@ private:
     };
 
     Color color;
-    uint8_t ledIndex;
-
     State state;
     uint32_t animationStartMs;
-
-    bool shouldBeVisible(Canvas& canvas);
 };
 
 } /* namespace Layers */
