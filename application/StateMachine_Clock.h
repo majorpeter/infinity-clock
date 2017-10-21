@@ -8,8 +8,8 @@
 #ifndef STATEMACHINE_CLOCK_H_
 #define STATEMACHINE_CLOCK_H_
 
-#include "StateMachine.h"
 #include "Color.h"
+#include "StateMachine.h"
 
 class Layer;
 

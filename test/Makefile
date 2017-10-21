@@ -2,22 +2,22 @@ JSON := test.js
 TARGET := InfinityClockJson
 
 SRC := \
-../src/testmain.cpp \
-../src/Time.cpp \
-../src/Canvas.cpp \
-../src/JsonCanvas.cpp \
-../src/Color.cpp \
-../src/EventLoop.cpp \
-../src/StateMachine_Initial.cpp \
-../src/StateMachine_Clock.cpp \
-../src/Layer_ClockHour.cpp \
-../src/Layer_ClockMinute.cpp \
-../src/Layer_ClockSecond.cpp
+../application/testmain.cpp \
+../application/Time.cpp \
+../application/Canvas.cpp \
+../application/JsonCanvas.cpp \
+../application/Color.cpp \
+../application/EventLoop.cpp \
+../application/StateMachine_Initial.cpp \
+../application/StateMachine_Clock.cpp \
+../application/Layer_ClockHour.cpp \
+../application/Layer_ClockMinute.cpp \
+../application/Layer_ClockSecond.cpp
 
-OBJ := $(subst ../src/,,$(patsubst %.cpp,%.o,$(SRC)))
+OBJ := $(subst ../application/,,$(patsubst %.cpp,%.o,$(SRC)))
 
 GCC_FLAGS := \
--I../include \
+-I../application \
 -Og \
 -g3
 
@@ -27,7 +27,7 @@ $(TARGET): $(OBJ)
 $(JSON): $(TARGET) $(SRC)
 	./$(TARGET) $(JSON)
 
-%.o: ../src/%.cpp
+%.o: ../application/%.cpp
 	g++ $(GCC_FLAGS) -o $@ -c $<
 
 all: $(TARGET) $(JSON)
