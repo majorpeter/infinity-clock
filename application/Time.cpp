@@ -81,10 +81,6 @@ bool Time::operator<(const Time& other) const {
     return (*this > other);
 }
 
-uint32_t Time::toMsec() const {
-    return sec * 1000 + msec;
-}
-
 void Time::normalize() {
     if (msec >= 1000) {
         sec += msec / 1000;

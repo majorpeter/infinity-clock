@@ -28,7 +28,9 @@ public:
     }
     bool operator>(const Time& other) const;
     bool operator<(const Time& other) const;
-    uint32_t toMsec() const;
+    inline uint32_t toMsec() const {
+        return sec * 1000 + msec;
+    }
 
     static inline void tick();
 private:
