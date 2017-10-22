@@ -17,7 +17,7 @@ void StateMachine_Initial::onEnter() {
     enterTime = Time::now();
 }
 
-StateMachine::Result StateMachine_Initial::update(const Time& now) {
+StateMachine::Result StateMachine_Initial::update(const Qep&, const Time& now) {
     if (now.toMsec() - enterTime.toMsec() > renderTime.toMsec()) {
         return Result_Done;
     }

@@ -20,7 +20,11 @@ int main() {
     Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
     canvas->init();
 
-    EventLoop* loop = new EventLoop(*canvas,
+
+
+    Qep* qep = Hardware::createRotaryEncoder();
+
+    EventLoop* loop = new EventLoop(*canvas, *qep,
             new StateMachine_Clock(Color::red, Color::green, Color::blue, Color::white * 0.25f, Color::white * 0.15f),
             new StateMachine_Initial());
     loop->run();

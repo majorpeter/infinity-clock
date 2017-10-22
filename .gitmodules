@@ -1,0 +1,3 @@
+[submodule "modules/qep"]
+	path = modules/qep
+	url = https://github.com/majorpeter/qep.git

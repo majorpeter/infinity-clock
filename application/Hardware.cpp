@@ -6,6 +6,7 @@
  */
 
 #include "Hardware.h"
+#include "qep/QepStm32F1Gpio.h"
 
 namespace Hardware {
 
@@ -100,6 +101,22 @@ void IRQ_Init() {
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
+}
+
+Qep* createRotaryEncoder() {
+    // the rotary encoder's COM pin must be pulled high
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_InitStruct.GPIO_Pin = QepPinCOM;
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
+    GPIO_Init(QepPortCOM, &GPIO_InitStruct);
+
+    GPIO_SetBits(QepPortCOM, QepPinCOM);
+
+    Qep* qep = new QepStm32F1Gpio(QepPortA, QepPinA, QepPortB, QepPinB);
+    qep->init();
+
+    return qep;
 }
 
 }

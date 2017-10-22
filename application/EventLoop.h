@@ -10,13 +10,17 @@
 
 #include "StateMachine.h"
 
+class Qep;
+
 class EventLoop {
 public:
-    EventLoop(Canvas& canvas, StateMachine* defaultState, StateMachine* initialState);
+    EventLoop(Canvas& canvas, Qep& qep, StateMachine* defaultState, StateMachine* initialState);
     ~EventLoop() {}
     void run();
 private:
     Canvas& canvas;
+    Qep& qep;
+
     StateMachine* defaultState;
     StateMachine* initialState;
     StateMachine* currentState;
