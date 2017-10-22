@@ -8,6 +8,7 @@
 #include "FunctionButton.h"
 #include "Time.h"
 
+static const uint16_t shortPressTimeMs = 50;
 static const uint16_t longPressTimeMs = 600;
 
 FunctionButton::FunctionButton(GPIO_TypeDef * const port, uint16_t pin): port(port), pin(pin) {
@@ -25,17 +26,18 @@ void FunctionButton::init() {
 }
 
 void FunctionButton::update() {
+    event = Event::None;
+
     uint8_t pinValue = GPIO_ReadInputDataBit(port, pin);
     if (pinValue != this->pinValue) {
         if (pinValue) {
             // pressed
             pressStartMs = Time::now().toMsec();
-            event = Event::None;
         } else {
             uint32_t pressTimeMs = Time::now().toMsec() - pressStartMs;
             if (pressTimeMs >= longPressTimeMs) {
                 event = Event::LongPress;
-            } else {
+            } else if (pressTimeMs >= shortPressTimeMs) {
                 event = Event::ShortPress;
             }
         }
