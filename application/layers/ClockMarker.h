@@ -19,7 +19,7 @@ namespace Layers {
 class ClockMarker: public Layer {
 public:
     ClockMarker(Color color, uint8_t ledIndex);
-    virtual void render(Canvas& canvas, const Time& now);
+    virtual void render(Canvas& canvas, const Time& now, float brightness = 1.f);
 protected:
     const uint8_t ledIndex;
 

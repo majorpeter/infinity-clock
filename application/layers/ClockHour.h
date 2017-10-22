@@ -15,7 +15,7 @@ namespace Layers {
 class ClockHour: public Layer {
 public:
     ClockHour(const Color color);
-    virtual void render(Canvas& canvas, const Time& now);
+    virtual void render(Canvas& canvas, const Time& now, float brightness = 1.f);
 private:
     Color color;
 };

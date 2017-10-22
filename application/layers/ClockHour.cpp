@@ -17,11 +17,12 @@ static const uint8_t ledsPerHour = (60 / 12);
 ClockHour::ClockHour(Color color) : color(color) {
 }
 
-void ClockHour::render(Canvas& canvas, const Time& now) {
+void ClockHour::render(Canvas& canvas, const Time& now, float brightness) {
     uint8_t hour = (now.getSec() / 3600) % 12;
     uint8_t minute = (now.getSec() / 60) % 60;
     uint8_t second = now.getSec() % 60;
 
+    Color color = this->color * brightness;
     uint16_t hourAnimationMs = second * 1000 + now.getMsec();
     int16_t hourCenterLedIndex = hour * ledsPerHour;
     if ((minute == 0) && (hourAnimationMs < hourAnimationDurationMs)) {

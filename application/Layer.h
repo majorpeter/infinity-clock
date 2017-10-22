@@ -14,7 +14,7 @@
 class Layer {
 public:
     virtual ~Layer() {}
-    virtual void render(Canvas& canvas, const Time& now) = 0;
+    virtual void render(Canvas& canvas, const Time& now, float brightness = 1.f) = 0;
 };
 
 #endif /* LAYER_H_ */

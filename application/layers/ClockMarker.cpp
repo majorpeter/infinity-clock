@@ -23,7 +23,7 @@ ClockMarker::ClockMarker(Color color, uint8_t ledIndex) :
     animationStartMs = 0;
 }
 
-void ClockMarker::render(Canvas& canvas, const Time& now) {
+void ClockMarker::render(Canvas& canvas, const Time& now, float brightness) {
     switch (state) {
     case State::Hidden:
         if (shouldBeVisible(canvas)) {
@@ -34,7 +34,7 @@ void ClockMarker::render(Canvas& canvas, const Time& now) {
         if (!shouldBeVisible(canvas)) {
             this->hide(now);
         }
-        canvas.add(ledIndex, color);
+        canvas.add(ledIndex, color * brightness);
         break;
     case State::FadeIn: {
         float animationState = (now.toMsec() - animationStartMs) / (float) fadeTimeMs;
@@ -43,7 +43,7 @@ void ClockMarker::render(Canvas& canvas, const Time& now) {
             state = State::Default;
         }
         DEBUG_PRINTF("LED#%hhu anim_in %f\n", ledIndex, animationState);
-        canvas.add(ledIndex, color * animationState);
+        canvas.add(ledIndex, color * (animationState * brightness));
         break;
     }
     case State::FadeOut: {
@@ -53,7 +53,7 @@ void ClockMarker::render(Canvas& canvas, const Time& now) {
             state = State::Hidden;
         }
         DEBUG_PRINTF("LED#%hhu anim_out %f\n", ledIndex, animationState);
-        canvas.add(ledIndex, color * (1.f - animationState));
+        canvas.add(ledIndex, color * ((1.f - animationState) * brightness));
         break;
     }
     }
