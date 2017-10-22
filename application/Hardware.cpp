@@ -115,7 +115,7 @@ Qep* createRotaryEncoder() {
 
     GPIO_SetBits(QepPortCOM, QepPinCOM);
 
-    Qep* qep = new QepStm32F1Gpio(QepPortA, QepPinA, QepPortB, QepPinB);
+    Qep* qep = new QepStm32F1Gpio(QepPortA, QepPinA, QepPortB, QepPinB, true);
     qep->init();
 
     return qep;

@@ -31,13 +31,13 @@ int main() {
     layers.second = new Layers::ClockSecond(Color::blue);
 
     // The four cardinal directions or cardinal points are the directions north, east, south, and west
-    static const Color colorCardinalDirections = Color::white * 0.25f;
+    static const Color colorCardinalDirections = Color::white * 0.15f;
     layers.markers[0] = new Layers::ClockMarker(colorCardinalDirections, 0);
     layers.markers[1] = new Layers::ClockMarker(colorCardinalDirections, 15);
     layers.markers[2] = new Layers::ClockMarker(colorCardinalDirections, 30);
     layers.markers[3] = new Layers::ClockMarker(colorCardinalDirections, 45);
 
-    static const Color colorProximityMarkers = Color::white * 0.15f;
+    static const Color colorProximityMarkers = Color::white * 0.08f;
     static const uint8_t proximity = 3;
     layers.markers[4] = new Layers::ClockProximityMarker(colorProximityMarkers, 5, proximity);
     layers.markers[5] = new Layers::ClockProximityMarker(colorProximityMarkers, 10, proximity);
