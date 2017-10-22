@@ -18,6 +18,8 @@ public:
 
     static Time now();
     static void setNow(const Time& value);
+
+    void addSec(int32_t sec);
     void addMsec(uint16_t msec);
 
     inline uint32_t getSec() const {

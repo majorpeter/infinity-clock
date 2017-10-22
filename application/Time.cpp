@@ -61,6 +61,14 @@ void Time::setNow(const Time& value) {
     ::now = value;
 }
 
+void Time::addSec(int32_t sec) {
+    int32_t result = this->sec + sec;
+    if (result < 0) {
+        result += 12 * 3600;
+    }
+    this->sec = result;
+}
+
 void Time::addMsec(uint16_t msec) {
     this->msec += msec;
     this->normalize();

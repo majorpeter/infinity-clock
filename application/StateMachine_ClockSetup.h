@@ -24,9 +24,10 @@ public:
     virtual StateMachine* update(const Qep& qep, const FunctionButton& button, const Time& now);
     virtual void render(Canvas& canvas, const Time& now);
 private:
-    enum class State {Hour, Minute, Second};
+    enum class State {HourSetting, MinuteSetting, SecondSetting};
 
     Time timeToSet;
+    int32_t qepAbsValue;
     static StateMachine_ClockSetup* instance;
     Layers::ClockLayerCollection* layers;
     State state;
