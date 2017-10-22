@@ -24,10 +24,16 @@ using namespace Layers;
 StateMachine_ClockSetup::StateMachine_ClockSetup(Layers::ClockLayerCollection* layers) :
         layers(layers) {
     instance = this;
+    state = State::Hour;
 }
 
 StateMachine_ClockSetup* StateMachine_ClockSetup::getInstance() {
     return instance;
+}
+
+void StateMachine_ClockSetup::onEnter() {
+    timeToSet = Time::now();
+    state = State::Hour;
 }
 
 StateMachine* StateMachine_ClockSetup::update(const Qep& qep, const FunctionButton& button, const Time& now) {
@@ -37,9 +43,9 @@ StateMachine* StateMachine_ClockSetup::update(const Qep& qep, const FunctionButt
 void StateMachine_ClockSetup::render(Canvas& canvas, const Time& now) {
     canvas.fillColor(Color::black);
 
-    layers->hour->render(canvas, now);
-    layers->minute->render(canvas, now);
-    layers->second->render(canvas, now);
+    layers->hour->render(canvas, timeToSet);
+    layers->minute->render(canvas, timeToSet);
+    layers->second->render(canvas, timeToSet);
 
     for (uint8_t i = 0; i < sizeof(layers->markers) / sizeof(layers->markers[0]); i++) {
         layers->markers[i]->render(canvas, now);
