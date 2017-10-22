@@ -69,6 +69,7 @@ StateMachine* StateMachine_ClockSetup::update(const Qep& qep, const FunctionButt
             state = State::SecondSetting;
             break;
         case State::SecondSetting:
+            Time::setNow(timeToSet);
             return StateMachine_Clock::getInstance();
         }
     }
