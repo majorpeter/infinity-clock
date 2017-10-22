@@ -15,7 +15,7 @@ class StateMachine_Initial: public StateMachine {
 public:
     StateMachine_Initial();
     virtual void onEnter();
-    virtual Result update(const Qep& qep, const FunctionButton& button, const Time& now);
+    virtual StateMachine* update(const Qep& qep, const FunctionButton& button, const Time& now);
     virtual void render(Canvas& canvas, const Time& now);
 private:
     Time enterTime;

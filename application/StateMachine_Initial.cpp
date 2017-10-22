@@ -6,6 +6,8 @@
  */
 
 #include "StateMachine_Initial.h"
+#include "StateMachine_Clock.h"
+
 #include "Canvas.h"
 #include "FunctionButton.h"
 
@@ -18,14 +20,14 @@ void StateMachine_Initial::onEnter() {
     enterTime = Time::now();
 }
 
-StateMachine::Result StateMachine_Initial::update(const Qep&, const FunctionButton& button, const Time& now) {
+StateMachine* StateMachine_Initial::update(const Qep&, const FunctionButton& button, const Time& now) {
     if (now.toMsec() - enterTime.toMsec() > renderTime.toMsec()) {
-        return Result_Done;
+        return StateMachine_Clock::getInstance();
     }
     if (button.getEvent() != FunctionButton::Event::None) {
-        return Result_Done;
+        return StateMachine_Clock::getInstance();
     }
-    return Result_Ok;
+    return this;
 }
 
 void StateMachine_Initial::render(Canvas& canvas, const Time& now) {

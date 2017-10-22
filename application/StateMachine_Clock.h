@@ -17,9 +17,12 @@ class Layer;
 class StateMachine_Clock: public StateMachine {
 public:
     StateMachine_Clock(Layers::ClockLayerCollection* layers);
-    virtual StateMachine::Result update(const Qep& qep, const FunctionButton& button, const Time& now);
+    static StateMachine_Clock* getInstance();
+
+    virtual StateMachine* update(const Qep& qep, const FunctionButton& button, const Time& now);
     virtual void render(Canvas& canvas, const Time& now);
 private:
+    static StateMachine_Clock* instance;
     Layers::ClockLayerCollection* layers;
     float brightness;
 };

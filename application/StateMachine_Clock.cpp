@@ -15,14 +15,24 @@
 
 #include "qep/Qep.h"
 
+#include <stddef.h>
+
+StateMachine_Clock* StateMachine_Clock::instance = NULL;
+
 using namespace Layers;
 
 StateMachine_Clock::StateMachine_Clock(Layers::ClockLayerCollection* layers) :
         layers(layers) {
     brightness = 1.f;
+
+    instance = this;
 }
 
-StateMachine::Result StateMachine_Clock::update(const Qep& qep, const FunctionButton& button, const Time& now) {
+StateMachine_Clock* StateMachine_Clock::getInstance() {
+    return instance;
+}
+
+StateMachine* StateMachine_Clock::update(const Qep& qep, const FunctionButton& button, const Time& now) {
     static const float minimumVisibleValue = 0.05f;
     int32_t qepStep = qep.getDeltaValue();
     if (qepStep < 0) {
@@ -42,7 +52,7 @@ StateMachine::Result StateMachine_Clock::update(const Qep& qep, const FunctionBu
         }
     }
 
-    return StateMachine::Result_Ok;
+    return this;
 }
 
 void StateMachine_Clock::render(Canvas& canvas, const Time& now) {

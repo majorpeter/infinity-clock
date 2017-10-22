@@ -15,7 +15,7 @@ class FunctionButton;
 
 class EventLoop {
 public:
-    EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button, StateMachine* defaultState, StateMachine* initialState);
+    EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button, StateMachine* initialState);
     ~EventLoop() {}
     void run();
 private:
@@ -23,9 +23,7 @@ private:
     Qep& qep;
     FunctionButton& button;
 
-    StateMachine* defaultState;
-    StateMachine* initialState;
-    StateMachine* currentState;
+    StateMachine* state;
 
     void enter(StateMachine* nextState);
 };

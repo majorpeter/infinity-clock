@@ -13,37 +13,29 @@
 #include <stddef.h>
 
 EventLoop::EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button,
-        StateMachine* defaultState, StateMachine* initialState) :
-        canvas(canvas), qep(qep), button(button), defaultState(defaultState), initialState(initialState) {
-    if (initialState == NULL) {
-        this->initialState = defaultState;
-    }
-    currentState = NULL;
+        StateMachine* initialState) :
+        canvas(canvas), qep(qep), button(button), state(initialState) {
 }
 
 void EventLoop::run() {
-    this->enter(initialState);
+    this->enter(state);
     while (1) {
         Time now = Time::now();
         qep.update();
         button.update();
-        StateMachine::Result r = this->currentState->update(qep, button, now);
-        switch (r) {
-        case StateMachine::Result_Done:
-            this->enter(defaultState);
-            continue;
-        default:
-            break;
+        StateMachine* nextState = this->state->update(qep, button, now);
+        if (nextState != state) {
+            this->enter(nextState);
         }
-        this->currentState->render(canvas, now);
+        this->state->render(canvas, now);
         this->canvas.draw();
     }
 }
 
 void EventLoop::enter(StateMachine* nextState) {
-    if (currentState != NULL) {
-        currentState->onLeave();
+    if (state != NULL) {
+        state->onLeave();
     }
-    currentState = nextState;
-    currentState->onEnter();
+    state = nextState;
+    state->onEnter();
 }

@@ -47,11 +47,11 @@ int main() {
     layers.markers[9] = new Layers::ClockProximityMarker(colorProximityMarkers, 40, proximity);
     layers.markers[10] = new Layers::ClockProximityMarker(colorProximityMarkers, 50, proximity);
     layers.markers[11] = new Layers::ClockProximityMarker(colorProximityMarkers, 55, proximity);
+    new StateMachine_Clock(&layers);
 
     Qep* qep = Hardware::createRotaryEncoder();
     FunctionButton* button = Hardware::createFunctionButton();
     EventLoop* loop = new EventLoop(*canvas, *qep, *button,
-            new StateMachine_Clock(&layers),
             new StateMachine_Initial());
     loop->run();
 

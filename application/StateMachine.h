@@ -16,22 +16,13 @@ class FunctionButton;
 
 class StateMachine {
 public:
-    typedef enum {
-        /// return this for normal operation
-        Result_Ok,
-        /// return this to return to default state
-        Result_Done
-    } Result;
-
     StateMachine() {}
     virtual ~StateMachine() {}
 
     virtual void onEnter() {}
     virtual void onLeave() {}
 
-    virtual StateMachine::Result update(const Qep& qep, const FunctionButton& button, const Time& now) {
-        return Result_Ok;
-    }
+    virtual StateMachine* update(const Qep& qep, const FunctionButton& button, const Time& now) = 0;
     virtual void render(Canvas& canvas, const Time& now) {}
 };
 
