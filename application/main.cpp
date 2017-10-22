@@ -5,6 +5,7 @@
 
 #include "StateMachine_Initial.h"
 #include "StateMachine_Clock.h"
+#include "StateMachine_ClockSetup.h"
 #include "layers/ClockHour.h"
 #include "layers/ClockMinute.h"
 #include "layers/ClockSecond.h"
@@ -48,6 +49,7 @@ int main() {
     layers.markers[10] = new Layers::ClockProximityMarker(colorProximityMarkers, 50, proximity);
     layers.markers[11] = new Layers::ClockProximityMarker(colorProximityMarkers, 55, proximity);
     new StateMachine_Clock(&layers);
+    new StateMachine_ClockSetup(&layers);
 
     Qep* qep = Hardware::createRotaryEncoder();
     FunctionButton* button = Hardware::createFunctionButton();

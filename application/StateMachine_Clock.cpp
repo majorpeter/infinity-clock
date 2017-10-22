@@ -6,6 +6,7 @@
  */
 
 #include "StateMachine_Clock.h"
+#include "StateMachine_ClockSetup.h"
 #include "Canvas.h"
 
 #include "layers/ClockHour.h"
@@ -14,6 +15,7 @@
 #include "layers/ClockMarker.h"
 
 #include "qep/Qep.h"
+#include "FunctionButton.h"
 
 #include <stddef.h>
 
@@ -50,6 +52,10 @@ StateMachine* StateMachine_Clock::update(const Qep& qep, const FunctionButton& b
                 brightness = 1.f;
             }
         }
+    }
+
+    if (button.getEvent() == FunctionButton::Event::LongPress) {
+        return StateMachine_ClockSetup::getInstance();
     }
 
     return this;
