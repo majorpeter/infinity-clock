@@ -7,6 +7,7 @@
 
 #include "StateMachine_Initial.h"
 #include "Canvas.h"
+#include "FunctionButton.h"
 
 static const Time renderTime = {5, 0};
 
@@ -17,8 +18,11 @@ void StateMachine_Initial::onEnter() {
     enterTime = Time::now();
 }
 
-StateMachine::Result StateMachine_Initial::update(const Qep&, const Time& now) {
+StateMachine::Result StateMachine_Initial::update(const Qep&, const FunctionButton& button, const Time& now) {
     if (now.toMsec() - enterTime.toMsec() > renderTime.toMsec()) {
+        return Result_Done;
+    }
+    if (button.getEvent() != FunctionButton::Event::None) {
         return Result_Done;
     }
     return Result_Ok;

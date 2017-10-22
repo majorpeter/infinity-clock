@@ -12,6 +12,7 @@
 
 class Canvas;
 class Qep;
+class FunctionButton;
 
 class StateMachine {
 public:
@@ -28,7 +29,7 @@ public:
     virtual void onEnter() {}
     virtual void onLeave() {}
 
-    virtual StateMachine::Result update(const Qep& qep,const Time& now) {
+    virtual StateMachine::Result update(const Qep& qep, const FunctionButton& button, const Time& now) {
         return Result_Ok;
     }
     virtual void render(Canvas& canvas, const Time& now) {}

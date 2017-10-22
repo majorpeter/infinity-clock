@@ -11,15 +11,17 @@
 #include "StateMachine.h"
 
 class Qep;
+class FunctionButton;
 
 class EventLoop {
 public:
-    EventLoop(Canvas& canvas, Qep& qep, StateMachine* defaultState, StateMachine* initialState);
+    EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button, StateMachine* defaultState, StateMachine* initialState);
     ~EventLoop() {}
     void run();
 private:
     Canvas& canvas;
     Qep& qep;
+    FunctionButton& button;
 
     StateMachine* defaultState;
     StateMachine* initialState;

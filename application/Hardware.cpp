@@ -6,7 +6,9 @@
  */
 
 #include "Hardware.h"
+
 #include "qep/QepStm32F1Gpio.h"
+#include "FunctionButton.h"
 
 namespace Hardware {
 
@@ -117,6 +119,12 @@ Qep* createRotaryEncoder() {
     qep->init();
 
     return qep;
+}
+
+FunctionButton* createFunctionButton() {
+    FunctionButton* button = new FunctionButton(FunctionButtonPort, FunctionButtonPin);
+    button->init();
+    return button;
 }
 
 }
