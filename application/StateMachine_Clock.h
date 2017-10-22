@@ -10,17 +10,16 @@
 
 #include "Color.h"
 #include "StateMachine.h"
+#include "layers/ClockLayerCollection.h"
 
 class Layer;
 
 class StateMachine_Clock: public StateMachine {
 public:
-    StateMachine_Clock(const Color colorHour, const Color colorMinute,
-            const Color colorSecond, const Color colorCardinalDirections,
-            const Color colorProximityMarkers);
+    StateMachine_Clock(Layers::ClockLayerCollection* layers);
     virtual void render(Canvas& canvas, const Time& now);
 private:
-    Layer* layers[15];
+    Layers::ClockLayerCollection* layers;
 };
 
 #endif /* STATEMACHINE_CLOCK_H_ */

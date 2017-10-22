@@ -5,6 +5,11 @@
 
 #include "StateMachine_Initial.h"
 #include "StateMachine_Clock.h"
+#include "layers/ClockHour.h"
+#include "layers/ClockMinute.h"
+#include "layers/ClockSecond.h"
+#include "layers/ClockMarker.h"
+#include "layers/ClockProximityMarker.h"
 #include "EventLoop.h"
 
 int main() {
@@ -20,10 +25,33 @@ int main() {
     Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
     canvas->init();
 
+    Layers::ClockLayerCollection layers;
+    layers.hour = new Layers::ClockHour(Color::red);
+    layers.minute = new Layers::ClockMinute(Color::green);
+    layers.second = new Layers::ClockSecond(Color::blue);
+
+    // The four cardinal directions or cardinal points are the directions north, east, south, and west
+    static const Color colorCardinalDirections = Color::white * 0.25f;
+    layers.markers[0] = new Layers::ClockMarker(colorCardinalDirections, 0);
+    layers.markers[1] = new Layers::ClockMarker(colorCardinalDirections, 15);
+    layers.markers[2] = new Layers::ClockMarker(colorCardinalDirections, 30);
+    layers.markers[3] = new Layers::ClockMarker(colorCardinalDirections, 45);
+
+    static const Color colorProximityMarkers = Color::white * 0.15f;
+    static const uint8_t proximity = 3;
+    layers.markers[4] = new Layers::ClockProximityMarker(colorProximityMarkers, 5, proximity);
+    layers.markers[5] = new Layers::ClockProximityMarker(colorProximityMarkers, 10, proximity);
+    layers.markers[6] = new Layers::ClockProximityMarker(colorProximityMarkers, 20, proximity);
+    layers.markers[7] = new Layers::ClockProximityMarker(colorProximityMarkers, 25, proximity);
+    layers.markers[8] = new Layers::ClockProximityMarker(colorProximityMarkers, 35, proximity);
+    layers.markers[9] = new Layers::ClockProximityMarker(colorProximityMarkers, 40, proximity);
+    layers.markers[10] = new Layers::ClockProximityMarker(colorProximityMarkers, 50, proximity);
+    layers.markers[11] = new Layers::ClockProximityMarker(colorProximityMarkers, 55, proximity);
+
     Qep* qep = Hardware::createRotaryEncoder();
     FunctionButton* button = Hardware::createFunctionButton();
     EventLoop* loop = new EventLoop(*canvas, *qep, *button,
-            new StateMachine_Clock(Color::red, Color::green, Color::blue, Color::white * 0.25f, Color::white * 0.15f),
+            new StateMachine_Clock(&layers),
             new StateMachine_Initial());
     loop->run();
 
