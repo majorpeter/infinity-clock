@@ -1,3 +1,6 @@
 [submodule "modules/qep"]
 	path = modules/qep
 	url = https://github.com/majorpeter/qep.git
+[submodule "modules/ws2812-stm32"]
+	path = modules/ws2812-stm32
+	url = https://github.com/majorpeter/ws2812-stm32.git

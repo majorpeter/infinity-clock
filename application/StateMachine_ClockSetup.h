@@ -8,10 +8,10 @@
 #ifndef STATEMACHINE_CLOCKSETUP_H_
 #define STATEMACHINE_CLOCKSETUP_H_
 
-#include "Color.h"
 #include "StateMachine.h"
-#include "layers/ClockLayerCollection.h"
 #include "Time.h"
+#include "layers/ClockLayerCollection.h"
+#include "ws2812-stm32/Color.h"
 
 class Layer;
 

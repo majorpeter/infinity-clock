@@ -9,7 +9,7 @@
 #define HARDWARECANVAS_H_
 
 #include "Canvas.h"
-#include "LedStripController.h"
+#include "ws2812-stm32/LedStripController.h"
 
 class HardwareCanvas: public Canvas {
 public:

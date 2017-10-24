@@ -8,7 +8,7 @@
 #ifndef CANVAS_H_
 #define CANVAS_H_
 
-#include "Color.h"
+#include "ws2812-stm32/Color.h"
 
 class Canvas {
 public:
