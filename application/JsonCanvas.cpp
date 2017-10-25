@@ -8,7 +8,7 @@
 #include "JsonCanvas.h"
 #include <stdlib.h>
 
-JsonCanvas::JsonCanvas(const char* fname) {
+JsonCanvas::JsonCanvas(const char* fname): Canvas(60) {
     f = fopen(fname, "w");
     if (f == NULL) {
         exit(-1);

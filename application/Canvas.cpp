@@ -6,8 +6,14 @@
  */
 
 #include "Canvas.h"
+#include <ws2812-stm32/Color.h>
 
-Canvas::Canvas() {
+Canvas::Canvas(uint16_t ledCount): ledCount(ledCount) {
+    leds = new Color[ledCount];
+}
+
+Canvas::~Canvas() {
+    delete[] leds;
 }
 
 void Canvas::clear() {

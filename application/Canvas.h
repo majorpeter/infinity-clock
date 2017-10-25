@@ -8,14 +8,13 @@
 #ifndef CANVAS_H_
 #define CANVAS_H_
 
-#include "ws2812-stm32/Color.h"
+#include <stdint.h>
+#include <ws2812-stm32/Color.h>
 
 class Canvas {
 public:
-    static const uint16_t ledCount = 60;
-
-    Canvas();
-    virtual ~Canvas() {}
+    Canvas(uint16_t ledCount);
+    virtual ~Canvas();
 
     virtual void init() {}
     virtual void clear();
@@ -25,9 +24,10 @@ public:
     virtual bool isSet(int16_t index);
     virtual void draw() = 0;
 protected:
-    Color leds[ledCount];
+    const uint16_t ledCount;
+    Color* leds;
 private:
-    static inline int16_t fixIndexRange(int16_t index) {
+    inline int16_t fixIndexRange(int16_t index) {
         if (index < 0) {
             return index + ledCount;
         }
