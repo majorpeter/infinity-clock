@@ -10,11 +10,13 @@
 #include "qep/Qep.h"
 #include "FunctionButton.h"
 
+#include <mprotocol-server/ProtocolParser.h>
 #include <stddef.h>
 
 EventLoop::EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button,
-        StateMachine* initialState) :
-        canvas(canvas), qep(qep), button(button), state(initialState) {
+        ProtocolParser* protocolParser, StateMachine* initialState) :
+        canvas(canvas), qep(qep), button(button),
+        protocolParser(protocolParser), state(initialState) {
 }
 
 void EventLoop::run() {
@@ -23,12 +25,14 @@ void EventLoop::run() {
         Time now = Time::now();
         qep.update();
         button.update();
-        StateMachine* nextState = this->state->update(qep, button, now);
+        StateMachine* nextState = state->update(qep, button, now);
         if (nextState != state) {
-            this->enter(nextState);
+            enter(nextState);
         }
-        this->state->render(canvas, now);
-        this->canvas.draw();
+        state->render(canvas, now);
+        canvas.draw();
+
+        protocolParser->handler();
     }
 }
 

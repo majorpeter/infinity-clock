@@ -12,10 +12,11 @@
 
 class Qep;
 class FunctionButton;
+class ProtocolParser;
 
 class EventLoop {
 public:
-    EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button, StateMachine* initialState);
+    EventLoop(Canvas& canvas, Qep& qep, FunctionButton& button, ProtocolParser* protocolParser, StateMachine* initialState);
     ~EventLoop() {}
     void run();
 private:
@@ -23,6 +24,7 @@ private:
     Qep& qep;
     FunctionButton& button;
 
+    ProtocolParser* protocolParser;
     StateMachine* state;
 
     void enter(StateMachine* nextState);

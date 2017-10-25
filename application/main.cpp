@@ -13,6 +13,13 @@
 #include "layers/ClockProximityMarker.h"
 #include "EventLoop.h"
 
+#include "EspLink.h"
+#include <ws2812-stm32/LedStripController.h>
+#include <mprotocol-server/ProtocolParser.h>
+#include <mprotocol-nodes/RootNode.h>
+
+#include "nodes/TimeNode.h"
+
 int main() {
     Hardware::RCC_Init();
     Hardware::GPIO_Remap();
@@ -51,9 +58,14 @@ int main() {
     new StateMachine_Clock(&layers);
     new StateMachine_ClockSetup(&layers);
 
+    EspLink* serialInterface = new EspLink(Hardware::EspResetPort,
+            Hardware::EspResetPin, Hardware::EspChPdPort, Hardware::EspChPdPin);
+    ProtocolParser* protocol = new ProtocolParser(serialInterface);
+    serialInterface->listen();
+
     Qep* qep = Hardware::createRotaryEncoder();
     FunctionButton* button = Hardware::createFunctionButton();
-    EventLoop* loop = new EventLoop(*canvas, *qep, *button,
+    EventLoop* loop = new EventLoop(*canvas, *qep, *button, protocol,
             new StateMachine_Initial());
     loop->run();
 

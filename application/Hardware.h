@@ -31,6 +31,11 @@ static const uint16_t QepPinB = GPIO_Pin_3;
 static GPIO_TypeDef * const FunctionButtonPort = GPIOA;
 static const uint16_t FunctionButtonPin = GPIO_Pin_1;
 
+static GPIO_TypeDef * const EspChPdPort = GPIOA;
+static const uint16_t EspChPdPin = GPIO_Pin_11;
+static GPIO_TypeDef * const EspResetPort = GPIOA;
+static const uint16_t EspResetPin = GPIO_Pin_12;
+
 void RCC_Init();
 void GPIO_Remap();
 void SysTickInit();
