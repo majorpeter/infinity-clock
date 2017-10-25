@@ -19,6 +19,7 @@
 #include <mprotocol-nodes/RootNode.h>
 
 #include "nodes/TimeNode.h"
+#include "nodes/CanvasNode.h"
 
 int main() {
     Hardware::RCC_Init();
@@ -59,6 +60,7 @@ int main() {
     new StateMachine_ClockSetup(&layers);
 
     RootNode::getInstance()->addChild(new TimeNode());
+    RootNode::getInstance()->addChild(new CanvasNode(canvas));
 
     EspLink* serialInterface = new EspLink(Hardware::EspResetPort,
             Hardware::EspResetPin, Hardware::EspChPdPort, Hardware::EspChPdPin);

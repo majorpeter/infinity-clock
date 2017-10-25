@@ -6,7 +6,7 @@
  */
 
 #include "TimeNode.h"
-#include "../Time.h"
+#include "Time.h"
 
 #include <stdio.h>
 
@@ -24,7 +24,7 @@ TimeNode::TimeNode(): Node("TIME") {
 
 ProtocolResult_t TimeNode::getTime(char* dest) const {
     Time now = Time::now();
-    sprintf(dest, "%lu:%lu:%lu",
+    sprintf(dest, "%lu:%02lu:%02lu",
             now.getSec() / 3600,
             (now.getSec() / 60) % 60,
             now.getSec() % 60);
@@ -33,6 +33,6 @@ ProtocolResult_t TimeNode::getTime(char* dest) const {
 
 ProtocolResult_t TimeNode::getUpTime(char* dest) const {
     uint32_t ticks = Time::getTicksSinceStart();
-    sprintf(dest, "%lu.%lu s", ticks / 1000, ticks % 1000);
+    sprintf(dest, "%lu.%03lu s", ticks / 1000, ticks % 1000);
     return ProtocolResult_Ok;
 }
