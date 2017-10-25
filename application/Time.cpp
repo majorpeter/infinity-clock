@@ -11,6 +11,7 @@
 #endif
 
 Time now;
+volatile uint32_t ticksSinceStart;
 
 #ifdef STM32F10X_MD
 extern "C"
@@ -30,6 +31,11 @@ void Time::tick() {
         // don't allow an invalid msec value, wait for RTC sync instead
         ::now.msec++;
     }
+    ticksSinceStart++;
+}
+
+uint32_t Time::getTicksSinceStart() {
+    return ticksSinceStart;
 }
 #endif
 

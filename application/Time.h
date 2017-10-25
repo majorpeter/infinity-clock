@@ -35,6 +35,7 @@ public:
     }
 
     static inline void tick();
+    static uint32_t getTicksSinceStart();
 private:
     uint32_t sec;
     uint16_t msec;

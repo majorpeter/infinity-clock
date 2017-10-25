@@ -58,6 +58,8 @@ int main() {
     new StateMachine_Clock(&layers);
     new StateMachine_ClockSetup(&layers);
 
+    RootNode::getInstance()->addChild(new TimeNode());
+
     EspLink* serialInterface = new EspLink(Hardware::EspResetPort,
             Hardware::EspResetPin, Hardware::EspChPdPort, Hardware::EspChPdPin);
     ProtocolParser* protocol = new ProtocolParser(serialInterface);
