@@ -13,7 +13,7 @@
 
 class HardwareCanvas: public Canvas {
 public:
-    HardwareCanvas(GPIO_TypeDef const* dataOutGpioPort, uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse);
+    HardwareCanvas(GPIO_TypeDef * const dataOutGpioPort, uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse);
     virtual ~HardwareCanvas() {}
 
     virtual void init();

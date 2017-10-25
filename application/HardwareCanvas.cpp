@@ -7,9 +7,9 @@
 
 #include "HardwareCanvas.h"
 
-HardwareCanvas::HardwareCanvas(GPIO_TypeDef const* dataOutGpioPort,
+HardwareCanvas::HardwareCanvas(GPIO_TypeDef * const dataOutGpioPort,
         uint16_t dataOutGpioPin, uint16_t ledIndexOffset, bool reverse) :
-        ledStrip(dataOutGpioPort, dataOutGpioPin, ledIndexOffset, reverse) {
+        ledStrip(dataOutGpioPort, dataOutGpioPin, 60, ledIndexOffset, reverse) {
 }
 
 void HardwareCanvas::init() {
