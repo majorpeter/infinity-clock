@@ -31,7 +31,7 @@ int main() {
     //TODO maybe a nicer way to wait for first SysTick?
     while (Time::now().getMsec() == 0);
 
-    Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, Hardware::LedOffset, Hardware::LedsReversed);
+    Canvas* canvas = new HardwareCanvas(Hardware::LedStripDataOutPort, Hardware::LedStripDataOutPin, 60, Hardware::LedOffset, Hardware::LedsReversed);
     canvas->init();
 
     Layers::ClockLayerCollection layers;
